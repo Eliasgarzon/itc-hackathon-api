@@ -26,7 +26,8 @@ const requestSchema = new mongoose.Schema({
     default: 0,
     enum: {
       values: [0, 1, 2, 3, 4],
-      message: "Please select a valid number from 1-4 according to the stages definition. (see docs)",
+      message:
+        "Please select a valid number from 1-4 according to the stages definition. (see docs)",
     },
     msg: { type: String },
   },
