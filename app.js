@@ -6,6 +6,7 @@ import xss from "xss-clean";
 import hpp from "hpp";
 import userRouter from "./routes/userRoutes.js";
 import rideRouter from "./routes/rideRoutes.js";
+import requestRouter from "./routes/requestRoute.js";
 import AppError from "./utils/AppError.js";
 import globalErrorHandler from "./controllers/errorController.js";
 import cors from "cors";
@@ -75,6 +76,7 @@ app.use(function (req, res, next) {
 //Routes
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/rides", rideRouter);
+app.use("/api/v1/requests", requestRouter);
 //
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on the server!`, 404));

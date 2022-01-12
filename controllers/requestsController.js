@@ -13,6 +13,16 @@ export const matchRideId = (req, res, next) => {
   next();
 };
 
+export const requestType = (req, res, next) => {
+  req.query = { joinerId: req.user._id };
+  next();
+};
+
+export const deactivateRequest = (req, res, next) => {
+  req.body.status = 4;
+  next();
+};
+
 // const filterObj = (obj, ...allowedFields) => {
 //   const newObj = {};
 //   Object.keys(obj).forEach((el) => {
