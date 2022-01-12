@@ -1,13 +1,11 @@
 import express from "express";
-import morgan from "morgan";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import mongoSanitize from "express-mongo-sanitize";
 import xss from "xss-clean";
 import hpp from "hpp";
 import userRouter from "./routes/userRoutes.js";
-import petRouter from "./routes/petRoutes.js";
-import adoptionRouter from "./routes/adoptionRoutes.js";
+import rideRouter from "./routes/rideRoutes.js";
 import AppError from "./utils/AppError.js";
 import globalErrorHandler from "./controllers/errorController.js";
 import cors from "cors";
@@ -84,9 +82,8 @@ app.use(function (req, res, next) {
 
 //Routes
 app.use("/api/v1/users", userRouter);
-app.use("/api/v1/pets", petRouter);
-app.use("/api/v1/adoptions", adoptionRouter);
-
+app.use("/api/v1/rides", rideRouter);
+//
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on the server!`, 404));
 });

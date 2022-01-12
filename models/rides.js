@@ -1,32 +1,29 @@
 import mongoose from "mongoose";
 
-const petSchema = new mongoose.Schema({
+const rideSchema = new mongoose.Schema({
   createdBy: { type: mongoose.Schema.ObjectId, ref: "User" },
-
-  date: { type: Date, default: Date.now },
-
-  pickOff: {
-    type: object,
-    required: [true, "where do you want to start your ride?"],
+  createdAt: { type: Date, default: Date.now },
+  pickUp: {
+    type: Object,
+    required: [true, "Please include the starting location"],
   },
-
   dropOff: {
-    type: object,
-    required: [true, "where do you want to end your ride?"],
+    type: Object,
+    required: [true, "Please include a destination"],
   },
-
   rideTime: {
-    type: string,
-    required: [true, "what time you want to start your ride?"],
+    type: Date,
+    default: Date.now(),
+    required: [true, "The time of day must be specified"],
   },
-
   rideStatus: {
     type: Number,
     required: [true, "A ride must have a status."],
     default: 0,
     enum: {
       values: [0, 1, 2, 3, 4],
-      message: "Please select a valid number from 1-4 according to the stages definition. (see docs)",
+      message:
+        "Please select a valid number from 0-4 according to the stages definition. (see docs)",
     },
   },
   requestRef: [{ type: mongoose.Schema.ObjectId, ref: "requests" }],
