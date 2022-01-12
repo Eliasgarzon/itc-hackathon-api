@@ -5,8 +5,9 @@ import helmet from "helmet";
 import mongoSanitize from "express-mongo-sanitize";
 import xss from "xss-clean";
 import hpp from "hpp";
-import userRouter from "./routes/userRoutes.js";
+import requestsRouter from "./routes/requestRoute.js";
 import petRouter from "./routes/petRoutes.js";
+import userRouter from "./routes/userRoutes.js";
 import adoptionRouter from "./routes/adoptionRoutes.js";
 import AppError from "./utils/AppError.js";
 import globalErrorHandler from "./controllers/errorController.js";
@@ -67,18 +68,10 @@ const limiter = rateLimit({
 app.use("/api", limiter);
 
 //CORS Policy
-app.use(
-  cors({ credentials: true, origin: "https://fantasticpets.herokuapp.com" })
-);
+app.use(cors({ credentials: true, origin: "https://fantasticpets.herokuapp.com" }));
 app.use(function (req, res, next) {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://fantasticpets.herokuapp.com"
-  ); // update to match the domain you will make the request from
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
+  res.header("Access-Control-Allow-Origin", "https://fantasticpets.herokuapp.com"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
@@ -86,6 +79,7 @@ app.use(function (req, res, next) {
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/pets", petRouter);
 app.use("/api/v1/adoptions", adoptionRouter);
+app.use("/api/v1/requests", requestsRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on the server!`, 404));
