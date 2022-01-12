@@ -6,17 +6,17 @@ const requestSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now },
 
   pickUp: {
-    type: object,
+    type: Object,
     required: [true, "where do you want to start your ride?"],
   },
 
   dropOff: {
-    type: object,
+    type: Object,
     required: [true, "where do you want to end your ride?"],
   },
 
   rideTime: {
-    type: string,
+    type: String,
     required: [true, "what time you want to start your ride?"],
   },
 
@@ -29,7 +29,7 @@ const requestSchema = new mongoose.Schema({
       message:
         "Please select a valid number from 1-4 according to the stages definition. (see docs)",
     },
-    msg: { type: string },
+    msg: { type: String },
   },
 });
 
