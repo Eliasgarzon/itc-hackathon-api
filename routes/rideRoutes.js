@@ -12,8 +12,8 @@ const router = express.Router();
 
 router.use(protect);
 
-router.route("/").get(getAllRides).post(createRide).patch(updateRide);
-router.route("/:id").get(getRide);
+router.route("/").get(getAllRides).post(createRide);
+router.route("/:id").get(getRide).patch(updateRide);
 
 //latlng is like this center/34.094,24.57/unit...
 router
