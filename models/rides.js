@@ -4,12 +4,30 @@ const rideSchema = new mongoose.Schema({
   createdBy: { type: mongoose.Schema.ObjectId, ref: "User" },
   createdAt: { type: Date, default: Date.now },
   pickUp: {
-    type: Object,
-    required: [true, "Please include the starting location"],
+    type: {
+      type: String,
+      default: "Point",
+      enum: ["Point"],
+    },
+    //[longitude, latitude] NOTE the order
+    coordinates: {
+      type: [Number],
+      required: [true, "pickUp must have coordinates"],
+    },
+    address: String,
   },
   dropOff: {
-    type: Object,
-    required: [true, "Please include a destination"],
+    type: {
+      type: String,
+      default: "Point",
+      enum: ["Point"],
+    },
+    //[longitude, latitude] NOTE the order
+    coordinates: {
+      type: [Number],
+      required: [true, "dropOff must have coordinates"],
+    },
+    address: String,
   },
   rideTime: {
     type: Date,
@@ -29,6 +47,9 @@ const rideSchema = new mongoose.Schema({
   requestRef: [{ type: mongoose.Schema.ObjectId, ref: "requests" }],
   chosenRide: { type: mongoose.Schema.ObjectId, ref: "requests" },
 });
+
+rideSchema.index({ pickUp: "2dsphere" });
+rideSchema.index({ dropOff: "2dsphere" });
 
 const ride = mongoose.model("ride", rideSchema);
 
