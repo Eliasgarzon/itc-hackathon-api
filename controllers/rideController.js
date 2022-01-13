@@ -43,9 +43,23 @@ export const rideDefaults = catchAsync(async (req, res, next) => {
       pickUp.coordinates[0]
     }&trip_distance=${6}&dropoff_longitude=${
       dropOff.coordinates[1]
+    }&dropoff_latitude=${dropOff.coordinates[0]}&passenger_count=${1}`
+  );
+  const responseTwo = await axios.get(
+    `http://ec2-18-157-157-205.eu-central-1.compute.amazonaws.com:8080/predict_price?pickup_day=${0}&pickup_hour=${12}&pickup_minute=${0}&pickup_longitude=${
+      pickUp.coordinates[1]
+    }&pickup_latitude=${
+      pickUp.coordinates[0]
+    }&trip_distance=${6}&dropoff_longitude=${
+      dropOff.coordinates[1]
     }&dropoff_latitude=${dropOff.coordinates[0]}&passenger_count=${2}`
   );
-  console.log(response.data);
+  if (response?.data) {
+    req.body.priceAlone = response.data;
+  }
+  if (responseTwo?.data) {
+    req.body.priceSplit = response.data;
+  }
   req.body.createdBy = req.user.id;
   next();
 });
