@@ -28,6 +28,6 @@ router.route("/:id/completed").patch(completedRide, updateRide);
 
 //latlng is like this center/34.094,24.57/unit...
 router
-  .route("/rides-within/:distance/center/:latlng/unit/:unit")
+  .route("/rides-within/:distance/center/:latlng/end/:latlngEnd/unit/:unit")
   .get(getRidesWithin);
 export default router;

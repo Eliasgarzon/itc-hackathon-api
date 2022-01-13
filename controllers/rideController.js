@@ -65,8 +65,9 @@ export const completedRide = catchAsync(async (req, res, next) => {
 });
 
 export const getRidesWithin = catchAsync(async (req, res, next) => {
-  const { distance, latlng, unit } = req.params;
+  const { distance, latlng, latlngEnd, unit } = req.params;
   const [lat, lng] = latlng.split(",");
+  const [latE, lngE] = latlngEnd.split(",");
 
   if (!lat || !lng) {
     next(
@@ -80,6 +81,7 @@ export const getRidesWithin = catchAsync(async (req, res, next) => {
   const radius = unit === "miles" ? distance / 3963.2 : distance / 6378.1;
   const rides = await Ride.find({
     pickUp: { $geoWithin: { $centerSphere: [[lng, lat], radius] } },
+    dropOff: { $geoWithin: { $centerSphere: [[lngE, latE], radius] } },
   });
 
   console.log(distance, lat, lng, unit);

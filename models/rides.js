@@ -46,6 +46,8 @@ const rideSchema = new mongoose.Schema({
   },
   requestRef: [{ type: mongoose.Schema.ObjectId, ref: "requests" }],
   chosenRide: { type: mongoose.Schema.ObjectId, ref: "requests" },
+  priceAlone: Number,
+  priceSplit: Number,
 });
 
 rideSchema.index({ pickUp: "2dsphere" });
