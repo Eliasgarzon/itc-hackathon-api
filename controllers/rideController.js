@@ -10,6 +10,7 @@ import {
   updateOne,
 } from "./handlerFactory.js";
 import Request from "../models/requests.js";
+import axios from "axios";
 
 export const getAllRides = getAll(Ride);
 export const getRide = getOne(Ride);
@@ -21,10 +22,33 @@ export const filterMyRides = (req, res, next) => {
   next();
 };
 
-export const rideDefaults = (req, res, next) => {
+export const rideDefaults = catchAsync(async (req, res, next) => {
+  const { pickUp, dropOff } = req.body;
+  const input = {
+    pickup_day: 0,
+    pickup_hour: 12,
+    pickup_minute: 0,
+    passenger_count: 1,
+    trip_distance: 3,
+    pickup_longitude: pickUp.coordinates[1],
+    pickup_latitude: pickUp.coordinates[0],
+    dropoff_longitude: dropOff.coordinates[1],
+    dropoff_latitude: dropOff.coordinates[0],
+  };
+
+  const response = await axios.get(
+    `http://ec2-18-157-157-205.eu-central-1.compute.amazonaws.com:8080/predict_price?pickup_day=${0}&pickup_hour=${12}&pickup_minute=${0}&pickup_longitude=${
+      pickUp.coordinates[1]
+    }&pickup_latitude=${
+      pickUp.coordinates[0]
+    }&trip_distance=${6}&dropoff_longitude=${
+      dropOff.coordinates[1]
+    }&dropoff_latitude=${dropOff.coordinates[0]}&passenger_count=${2}`
+  );
+  console.log(response.data);
   req.body.createdBy = req.user.id;
   next();
-};
+});
 
 export const closeRide = catchAsync(async (req, res, next) => {
   const ride = await Ride.findById(req.params.id);
