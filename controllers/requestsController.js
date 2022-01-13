@@ -11,7 +11,10 @@ import Ride from "../models/rides.js";
 import catchAsync from "../utils/catchAsync.js";
 import AppError from "../utils/AppError.js";
 
-export const getAllRequests = getAll(Requests);
+export const getAllRequests = getAll(Requests, {
+  path: "joinerId",
+  select: "name email phoneNumber",
+});
 export const getRequests = getOne(Requests);
 export const updateRequests = updateOne(Requests);
 export const deleteRequests = deleteOne(Requests);
