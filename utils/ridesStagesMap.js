@@ -4,4 +4,5 @@ export default {
   2: "expired",
   3: "ride owner cancelled",
   4: "match cancelled",
+  5: "ride completed",
 };
