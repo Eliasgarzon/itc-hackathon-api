@@ -3,6 +3,7 @@ import {
   closeRide,
   completedRide,
   createRide,
+  filterMyRides,
   getAllRides,
   getRide,
   getRidesWithin,
@@ -16,6 +17,7 @@ const router = express.Router();
 router.use(protect);
 
 router.route("/").get(getAllRides).post(rideDefaults, createRide);
+router.route("/myrides").get(filterMyRides, getAllRides);
 router
   .route("/:id")
   .get(getRide)

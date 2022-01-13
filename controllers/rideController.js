@@ -9,13 +9,17 @@ import {
   getOne,
   updateOne,
 } from "./handlerFactory.js";
-import { application } from "express";
 import Request from "../models/requests.js";
 
 export const getAllRides = getAll(Ride);
 export const getRide = getOne(Ride);
 export const createRide = createOne(Ride);
 export const updateRide = updateOne(Ride);
+
+export const filterMyRides = (req, res, next) => {
+  req.query = { createdBy: req.user.id };
+  next();
+};
 
 export const rideDefaults = (req, res, next) => {
   req.body.createdBy = req.user.id;
