@@ -54,6 +54,7 @@ export const rideDefaults = catchAsync(async (req, res, next) => {
       dropOff.coordinates[1]
     }&dropoff_latitude=${dropOff.coordinates[0]}&passenger_count=${2}`
   );
+
   if (response?.data) {
     req.body.priceAlone = response.data;
   }
