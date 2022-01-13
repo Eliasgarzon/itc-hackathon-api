@@ -1,5 +1,5 @@
 import express from "express";
-import { protect, restrictTo } from "../controllers/authController.js";
+import { protect } from "../controllers/authController.js";
 import {
   getAllRequests,
   createRequest,

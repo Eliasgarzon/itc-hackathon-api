@@ -3,7 +3,6 @@ import User from "./../models/userModel.js";
 import catchAsync from "./../utils/catchAsync.js";
 import AppError from "../utils/AppError.js";
 import { deleteOne, getAll, getOne, updateOne } from "./handlerFactory.js";
-import Pet from "../models/petModel.js";
 import { uploadToCloudinary } from "../utils/cloudinary.js";
 import fs from "fs";
 
